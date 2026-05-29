@@ -57,7 +57,7 @@ Run the policy directly **on the robot**.
 
 Since the G1 has limited computing resources, you need to run `UnitreeCppEnv`. 
 
-Usually, the robot's network interface is `wlan0` (for G1). You don't need to modify the config. If you find it doesn't work. see [network configuration](#network-configuration) for help
+Usually, the robot's network interface is `eth0` (for G1). You don't need to modify the config. If you find it doesn't work. see [network configuration](#network-configuration) for help
 
 ## Deploy from Your Computer
 
@@ -93,7 +93,7 @@ class g1_real(g1):
         env_type="UnitreeEnv",  # For unitree_sdk2py
         # env_type="UnitreeCppEnv", # For unitree_cpp, check README for more details
         unitree=UnitreeEnvCfg.UnitreeCfg(
-            net_if="wlan0",  # note: change to your network interface
+            net_if="eth0",  # note: change to your network interface
             robot="g1",
             msg_type="hg",
         ),
@@ -106,7 +106,7 @@ class G1RealEnvCfg(G1EnvCfg, UnitreeEnvCfg):
     env_type: str = UnitreeEnvCfg.model_fields["env_type"].default
     # ====== ENV CONFIGURATION ======
     unitree: UnitreeEnvCfg.UnitreeCfg = UnitreeEnvCfg.UnitreeCfg(
-        net_if="wlan0", # EDIT HERE
+        net_if="eth0", # EDIT HERE
         robot="g1",
         msg_type="hg",
     )

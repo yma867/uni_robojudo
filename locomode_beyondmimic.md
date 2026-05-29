@@ -115,14 +115,14 @@ ip a
 ip link show
 ```
 
-找到连接到机器人的网卡名称（通常是 `wlan0`、`eno1`、`enp13s0` 等），然后在配置文件中修改 `net_if` 参数：
+找到连接到机器人的网卡名称（通常是 `eth0`、`eno1`、`enp13s0` 等），然后在配置文件中修改 `net_if` 参数：
 
 配置文件位置：`robojudo/config/g1/g1_loco_mimic_cfg.py` 中的 `g1_locomode_beyondmimic_real` 类
 
 ```python
 env: G1RealEnvCfg = G1RealEnvCfg(
     unitree=G1UnitreeCfg(
-        net_if="wlan0",  # 修改为你的网卡名称
+        net_if="eth0",  # 修改为你的网卡名称
     ),
 )
 ```

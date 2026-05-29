@@ -68,7 +68,7 @@ class g1_real(g1):
         # env_type="UnitreeEnv",  # For unitree_sdk2py
         env_type="UnitreeCppEnv",  # For unitree_cpp, check README for more details
         unitree=G1UnitreeCfg(
-            net_if="wlan0",  # note: change to your network interface
+            net_if="eth0",  # note: change to your network interface
             #网线部署时 net_if 改成工作站连接 G1 的网卡名即可（用 ip a 看那个接口叫啥）
         ),
     )

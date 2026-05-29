@@ -7,7 +7,7 @@ class Config(BaseModel):
         return self.model_dump()
 
 class UnitreeConfig(Config):
-    net_if: str = "wlan0"
+    net_if: str = "eth0"
     control_dt: float = 0.02
 
     msg_type: str = "hg"    # "hg" or "go"

@@ -20,7 +20,7 @@ class G1RealEnvCfg(G1EnvCfg, UnitreeEnvCfg):
     env_type: str = "UnitreeCppEnv"
     # ====== ENV CONFIGURATION ======
     unitree: UnitreeEnvCfg.UnitreeCfg = G1UnitreeCfg(
-        net_if="wlan0",
+        net_if="eth0",
     )
 
     odometry_type: Literal["NONE", "DUMMY", "UNITREE", "ZED"] = "UNITREE"
@@ -33,7 +33,7 @@ class G1WithHandRealEnvCfg(G1EnvCfg, UnitreeEnvCfg):
     env_type: str = "UnitreeCppEnv"
     # ====== ENV CONFIGURATION ======
     unitree: UnitreeEnvCfg.UnitreeCfg = G1UnitreeCfg(
-        net_if="wlan0",
+        net_if="eth0",
         hand_type="Dex-3",
     )
 
