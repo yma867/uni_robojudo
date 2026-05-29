@@ -62,7 +62,7 @@ class UnitreeEnvCfg(RobotEnvCfg):
     class UnitreeCfg(Config):
         """Unitree SDK configuration"""
 
-        net_if: str = "eth0"
+        net_if: str = "wlan0"
         """network interface to communicate with the robot"""
 
         robot: Literal["h1", "g1"]

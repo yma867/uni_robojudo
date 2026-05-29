@@ -239,7 +239,7 @@ class g1_locomimic_beyondmimic_real(g1_locomimic_beyondmimic):
 
     env: G1RealEnvCfg = G1RealEnvCfg(
         unitree=G1UnitreeCfg(
-            net_if="eth0",  # note: change to your network interface
+            net_if="wlan0",  # note: change to your network interface
         ),
     )
     ctrl: list[UnitreeCtrlCfg] = [
@@ -267,7 +267,7 @@ class g1_locomode_beyondmimic_real(g1_locomode_beyondmimic):
 
     env: G1RealEnvCfg = G1RealEnvCfg(
         unitree=G1UnitreeCfg(
-            net_if="eth0",  # note: change to your network interface
+            net_if="wlan0",  # note: change to your network interface
         ),
     )
     ctrl: list[UnitreeCtrlCfg] = [
@@ -295,7 +295,7 @@ class g1_locomode_mimickit_real(g1_locomode_mimickit):
 
     env: G1RealEnvCfg = G1RealEnvCfg(
         unitree=G1UnitreeCfg(
-            net_if="eth0",  # note: change to your network interface
+            net_if="wlan0",  # note: change to your network interface
         ),
     )
     ctrl: list[UnitreeCtrlCfg] = [
@@ -324,7 +324,7 @@ class g1_locomimic_asap_real(g1_locomimic_asap):
     # env: G1DummyEnvCfg = G1DummyEnvCfg()
     env: G1RealEnvCfg = G1RealEnvCfg(
         unitree=G1UnitreeCfg(
-            net_if="eth0",  # note: change to your network interface
+            net_if="wlan0",  # note: change to your network interface
         ),
     )
 
