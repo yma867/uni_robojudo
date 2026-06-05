@@ -43,6 +43,8 @@ warmup_mimic_idx: 0  # LocoMode
 - `[`：进入 Mimic
 - `;`：下一个 Mimic
 - `'`：上一个 Mimic
+- `i`：重置仿真
+- `o`：退出程序
 
 ### 手柄操作说明（PS5 / Xbox）
 本项目对 PS5 与 Xbox 名称做了别名映射，功能一致。下面按实体按键说明。

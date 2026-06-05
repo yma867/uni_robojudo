@@ -36,6 +36,16 @@ from .policy.g1_unitree_policy_cfg import G1UnitreePolicyCfg, G1UnitreeWoGaitPol
 
 # ================= LocoMotion + MotionMimic Policy Switch Configs ================= #
 
+# ASAP / RoboJuDo sim keyboard (shared across loco_mimic configs):
+#   ]=AMO  [=mimic  ;/=next  '/=prev  i=reborn  (exit: Ctrl+C in terminal)
+G1_LOCO_MIMIC_SIM_KEYBOARD: dict[str, str] = {
+    "i": "[SIM_REBORN]",
+    "]": "[POLICY_LOCO]",
+    "[": "[POLICY_MIMIC]",
+    ";": "[POLICY_SWITCH],NEXT",
+    "'": "[POLICY_SWITCH],LAST",
+}
+
 
 @cfg_registry.register
 class g1_locomimic_beyondmimic(G1RlLocoMimicPipelineCfg):
@@ -49,7 +59,6 @@ class g1_locomimic_beyondmimic(G1RlLocoMimicPipelineCfg):
         KeyboardCtrlCfg(
             triggers={
                 "i": "[SIM_REBORN]",
-                "o": "[SHUTDOWN]",
                 "]": "[POLICY_LOCO]",
                 "[": "[POLICY_MIMIC]",
                 ";": "[POLICY_SWITCH],NEXT",
@@ -75,9 +84,9 @@ class g1_locomimic_beyondmimic(G1RlLocoMimicPipelineCfg):
     """Any LocoMotion policy, as init"""
 
     mimic_policies: list[G1BeyondMimicPolicyCfg] = [
-        G1BeyondMimicPolicyCfg(policy_name="Dance_wose", without_state_estimator=True),
-        G1BeyondMimicPolicyCfg(policy_name="Violin", without_state_estimator=False, max_timestep=500),
-        G1BeyondMimicPolicyCfg(policy_name="Waltz", without_state_estimator=False, max_timestep=850),
+        G1BeyondMimicPolicyCfg(policy_name="Dance_wose", without_state_estimator=True, max_timestep=6573),
+        G1BeyondMimicPolicyCfg(policy_name="Violin", without_state_estimator=False, max_timestep=611),
+        G1BeyondMimicPolicyCfg(policy_name="Waltz", without_state_estimator=False, max_timestep=944),
     ]
 
 
@@ -93,7 +102,6 @@ class g1_locomode_beyondmimic(G1RlLocoMimicPipelineCfg):
         KeyboardCtrlCfg(
             triggers={
                 "i": "[SIM_REBORN]",
-                "o": "[SHUTDOWN]",
                 "]": "[POLICY_LOCO]",
                 "[": "[POLICY_MIMIC]",
                 ";": "[POLICY_SWITCH],NEXT",
@@ -117,15 +125,15 @@ class g1_locomode_beyondmimic(G1RlLocoMimicPipelineCfg):
 
     mimic_policies: list[G1LocoModePolicyCfg | G1BeyondMimicPolicyCfg | G1MotionTrackingPolicyCfg] = [
         G1LocoModePolicyCfg(),
-        G1BeyondMimicPolicyCfg(policy_name="Dance_wose", without_state_estimator=True),
-        G1BeyondMimicPolicyCfg(policy_name="Violin", without_state_estimator=False, max_timestep=500),
-        G1BeyondMimicPolicyCfg(policy_name="Waltz", without_state_estimator=False, max_timestep=850),
+        G1BeyondMimicPolicyCfg(policy_name="Dance_wose", without_state_estimator=True, max_timestep=6573),
+        G1BeyondMimicPolicyCfg(policy_name="Violin", without_state_estimator=False, max_timestep=611),
+        G1BeyondMimicPolicyCfg(policy_name="Waltz", without_state_estimator=False, max_timestep=944),
         G1MotionTrackingPolicyCfg(policy_name="oops_1min", motion_name="oops1009_g1"),
     ]
 
-    # 2 seconds warmup at 50Hz, then switch to mimic index 0 (LocoMode).
+    # Stay in AMO after startup; use [ to enter selected mimic manually.
     warmup_steps: int = 100
-    warmup_to_mimic: bool = True
+    warmup_to_mimic: bool = False
     warmup_mimic_idx: int = 0
 
 
@@ -141,7 +149,6 @@ class g1_locomode_mimickit(G1RlLocoMimicPipelineCfg):
         KeyboardCtrlCfg(
             triggers={
                 "i": "[SIM_REBORN]",
-                "o": "[SHUTDOWN]",
                 "]": "[POLICY_LOCO]",
                 "[": "[POLICY_MIMIC]",
                 ";": "[POLICY_SWITCH],NEXT",
@@ -188,7 +195,6 @@ class g1_locomimic_asap(G1RlLocoMimicPipelineCfg):
         KeyboardCtrlCfg(
             triggers={
                 "i": "[SIM_REBORN]",
-                "o": "[SHUTDOWN]",
                 "]": "[POLICY_LOCO]",
                 "[": "[POLICY_MIMIC]",
                 ";": "[POLICY_SWITCH],NEXT",
@@ -359,7 +365,6 @@ class g1_locomimic_asap_full(G1RlLocoMimicPipelineCfg):
         KeyboardCtrlCfg(
             triggers={
                 "i": "[SIM_REBORN]",
-                "o": "[SHUTDOWN]",
                 "]": "[POLICY_LOCO]",
                 "[": "[POLICY_MIMIC]",
                 ";": "[POLICY_SWITCH],NEXT",

@@ -219,6 +219,8 @@ class BeyondMimicPolicyCfg(PolicyCfg):
     disable_autoload: bool = True
 
     policy_name: str
+    # Fixed choreography length in control steps (50Hz). >0: finite motion, auto [MOTION_DONE] at end.
+    # -1: open-ended; only manual ]/Select to return AMO (same idea as LocoMode).
     max_timestep: int = -1
     start_timestep: int = 0
 

@@ -8,7 +8,6 @@ import onnxruntime as ort
 from robojudo.environment.utils.mujoco_viz import MujocoVisualizer
 from robojudo.policy import Policy, policy_registry
 from robojudo.policy.policy_cfgs import AsapLocoPolicyCfg, AsapPolicyCfg
-from robojudo.utils.progress import ProgressBar
 from robojudo.utils.util_func import command_remap, quat_rotate_inverse_np
 
 logger = logging.getLogger(__name__)
@@ -41,7 +40,6 @@ class AsapPolicy(Policy):
 
     def reset(self):
         self.timestep: float = 0
-        self.pbar = ProgressBar(f"ASAP {self.cfg_policy.policy_name}", self.motion_length_s)
         self.play_speed: float = 1.0
         self.flag_motion_done = False
 
@@ -52,7 +50,6 @@ class AsapPolicy(Policy):
             self._init_history(default_history)
 
     def post_step_callback(self, commands: list[str] | None = None):
-        self.pbar.set(self.timestep * self.dt)
         phase = self._get_frame_encoding()
         if phase >= 1.0:
             # self.reset()

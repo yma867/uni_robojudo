@@ -4,26 +4,46 @@ from tqdm import tqdm
 class ProgressBar:
     def __init__(self, tag, total):
         self.tag = tag
-        self.total = total
-        self.pbar = tqdm(
-            total=total,
-            desc=tag,
-            unit="step",
-            colour="magenta",
-            ncols=100,
-            dynamic_ncols=True,
-            mininterval=0.01,
-            leave=False,
-            ascii=True,
-        )
+        self.continuous = total is None or total <= 0
+        self.total = None if self.continuous else total
+        if self.continuous:
+            self.pbar = tqdm(
+                total=None,
+                desc=f"{tag} [playing]",
+                unit="step",
+                colour="magenta",
+                ncols=100,
+                dynamic_ncols=True,
+                mininterval=0.01,
+                leave=False,
+                ascii=True,
+                bar_format="{desc}: {n_fmt}{unit} [{elapsed}]",
+            )
+        else:
+            self.pbar = tqdm(
+                total=total,
+                desc=tag,
+                unit="step",
+                colour="magenta",
+                ncols=100,
+                dynamic_ncols=True,
+                mininterval=0.01,
+                leave=False,
+                ascii=True,
+            )
 
     def update(self, step=1):
         self.pbar.update(step)
 
     def set(self, n):
+        n = round(n, 3)
+        if self.continuous:
+            delta = int(n - self.pbar.n)
+            if delta > 0:
+                self.pbar.update(delta)
+            return
         if self.total > 0:
             n = max(0, min(n, self.pbar.total))  # clamp
-        n = round(n, 3)
         delta = n - self.pbar.n
         self.pbar.update(delta)
 

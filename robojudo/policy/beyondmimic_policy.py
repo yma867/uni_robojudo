@@ -9,7 +9,6 @@ from robojudo.environment.utils.mujoco_viz import MujocoVisualizer
 from robojudo.policy import Policy, policy_registry
 from robojudo.policy.policy_cfgs import BeyondMimicPolicyCfg
 from robojudo.tools.dof import DoFConfig
-from robojudo.utils.progress import ProgressBar
 from robojudo.utils.rotation import TransformAlignment
 from robojudo.utils.util_func import matrix_from_quat, subtract_frame_transforms
 
@@ -139,10 +138,6 @@ class BeyondMimicPolicy(Policy):
         # reset 时将 timestep 归零，last_action 清零（在父类 Policy.reset() 中处理）
         # play_speed 恢复为 1.0，flag_motion_done 清除，确保下一轮动作从头开始
         self.timestep: float = self.cfg_policy.start_timestep
-        if self.use_motion_from_model:
-            self.pbar = ProgressBar(f"Beyondmimic {self.cfg_policy.policy_name}", self.max_timestep)
-        else:
-            self.pbar = None
         # [关键参数] play_speed：控制动作时间步推进速率，1.0 为正常速度，0.0 为暂停（fade out 时使用）
         self.play_speed: float = 1.0
         self.flag_motion_done = False
@@ -151,8 +146,6 @@ class BeyondMimicPolicy(Policy):
     def post_step_callback(self, commands: list[str] | None = None):
         # [底层原理] 每个控制步结束后推进时间步，play_speed 为 0 时时间步冻结（动作暂停）
         self.timestep += 1 * self.play_speed
-        if self.pbar:
-            self.pbar.set(self.timestep)
 
         # [工程细节] 动作序列播放完毕后将 play_speed 置 0，防止 timestep 越界
         if 0 < self.max_timestep <= self.timestep:
